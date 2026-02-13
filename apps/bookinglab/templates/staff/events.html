@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Events · Staff · BookingLab{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-xl font-semibold">Events</h1>
+  <a href="/staff/events/new" class="bg-slate-900 text-white rounded-md px-3 py-2 text-sm hover:bg-slate-800">New event</a>
+</div>
+
+<div class="bg-white border rounded-lg overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-50 text-slate-500">
+      <tr>
+        <th class="text-left p-3">Title</th>
+        <th class="text-left p-3">Starts</th>
+        <th class="text-left p-3">Capacity</th>
+        <th class="text-left p-3">Booked</th>
+        <th class="text-left p-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+        <tr class="border-t">
+          <td class="p-3">
+            <div class="font-semibold">{{ event.title }}</div>
+            <div class="text-xs text-slate-500">{{ event.location or 'TBA' }}</div>
+          </td>
+          <td class="p-3">{{ event.starts_at.strftime('%b %d, %Y %I:%M %p') }}</td>
+          <td class="p-3">{{ event.capacity }}</td>
+          <td class="p-3">{{ event.seats_booked }}</td>
+          <td class="p-3">
+            <a href="/staff/events/{{ event.id }}" class="text-slate-700 hover:text-slate-900">View</a>
+            <span class="text-slate-300">|</span>
+            <a href="/staff/events/{{ event.id }}/edit" class="text-slate-500 hover:text-slate-700">Edit</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td class="p-3 text-slate-500" colspan="5">No events yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

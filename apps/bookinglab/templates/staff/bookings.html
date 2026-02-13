@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Bookings · Staff · BookingLab{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-xl font-semibold">Bookings</h1>
+  <a href="/staff/events" class="text-sm text-slate-600 hover:text-slate-800">Manage events</a>
+</div>
+
+<div x-data="{ open: true }" class="mb-4">
+  <button class="text-sm text-slate-600" @click="open = !open">
+    <span x-show="open">Hide filters</span>
+    <span x-show="!open">Show filters</span>
+  </button>
+  <div x-show="open" class="mt-3 bg-white border rounded-lg p-4">
+    <form
+      hx-get="/staff/bookings/list"
+      hx-target="#booking-results"
+      hx-push-url="true"
+      class="grid md:grid-cols-3 gap-3"
+    >
+      <div>
+        <label class="text-xs uppercase tracking-wide text-slate-500">Search</label>
+        <input name="q" value="{{ term }}" placeholder="Email or name" class="mt-1 w-full border rounded-md px-3 py-2" />
+      </div>
+      <div>
+        <label class="text-xs uppercase tracking-wide text-slate-500">Status</label>
+        <select name="status" class="mt-1 w-full border rounded-md px-3 py-2">
+          <option value="" {% if not status %}selected{% endif %}>All</option>
+          <option value="requested" {% if status == 'requested' %}selected{% endif %}>Requested</option>
+          <option value="confirmed" {% if status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+          <option value="canceled" {% if status == 'canceled' %}selected{% endif %}>Canceled</option>
+        </select>
+      </div>
+      <div class="flex items-end">
+        <button class="bg-slate-900 text-white rounded-md px-4 py-2 hover:bg-slate-800">Apply</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="booking-results">
+  {% include "partials/bookings_table.html" %}
+</div>
+{% endblock %}

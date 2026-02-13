@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}{{ event.title }} · Staff · BookingLab{% endblock %}
+{% block content %}
+<div class="flex items-start justify-between mb-4">
+  <div>
+    <div class="text-sm text-slate-500">{{ event.starts_at.strftime('%b %d, %Y %I:%M %p') }}</div>
+    <h1 class="text-xl font-semibold">{{ event.title }}</h1>
+    <div class="text-sm text-slate-500">{{ event.location or 'TBA' }}</div>
+  </div>
+  <a href="/staff/events/{{ event.id }}/edit" class="text-sm text-slate-600 hover:text-slate-800">Edit</a>
+</div>
+
+<div class="grid md:grid-cols-4 gap-3 mb-6">
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Capacity</div>
+    <div class="text-2xl font-semibold">{{ event.capacity }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Booked</div>
+    <div class="text-2xl font-semibold">{{ event.seats_booked }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Remaining</div>
+    <div class="text-2xl font-semibold">{{ event.remaining_capacity }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Revenue</div>
+    <div class="text-2xl font-semibold">${{ '%.2f' | format(event.revenue_cents / 100) }}</div>
+  </div>
+</div>
+
+<div class="bg-white border rounded-lg overflow-hidden">
+  <div class="px-4 py-3 border-b text-sm font-semibold">Bookings</div>
+  <table class="w-full text-sm">
+    <thead class="bg-slate-50 text-slate-500">
+      <tr>
+        <th class="text-left p-3">Code</th>
+        <th class="text-left p-3">Lead attendee</th>
+        <th class="text-left p-3">Seats</th>
+        <th class="text-left p-3">Status</th>
+        <th class="text-left p-3">Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in bookings %}
+        <tr class="border-t">
+          <td class="p-3 font-mono">{{ booking.booking_code }}</td>
+          <td class="p-3">
+            <div class="font-semibold">{{ booking.lead_name or '—' }}</div>
+            <div class="text-xs text-slate-500">{{ booking.lead_email or '' }}</div>
+          </td>
+          <td class="p-3">{{ booking.seats }}</td>
+          <td class="p-3">{{ booking.status }}</td>
+          <td class="p-3">{{ booking.created_at }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td class="p-3 text-slate-500" colspan="5">No bookings yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

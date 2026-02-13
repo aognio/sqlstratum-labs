@@ -9,7 +9,6 @@ cd apps/clinicdesk
 python -m venv .env
 source .env/bin/activate
 pip install -r requirements.txt
-pip install sqlstratum
 python scripts/seed.py
 ./run.sh
 ```

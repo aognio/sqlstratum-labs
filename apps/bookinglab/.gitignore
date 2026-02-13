@@ -1,0 +1,24 @@
+# Per-app virtualenv
+.env/
+
+# Local DB/data
+*.db
+*.sqlite
+*.sqlite3
+data/
+instance/
+
+# Logs
+*.log
+
+# Python cache
+__pycache__/
+
+# Environment files (do not commit secrets)
+.env
+.env.local
+.env.*
+
+# Local feedback/scrap space
+.feedback/
+.scrapbook/

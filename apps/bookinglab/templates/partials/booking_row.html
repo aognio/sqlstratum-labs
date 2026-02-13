@@ -1,0 +1,27 @@
+<tr class="border-t">
+  <td class="p-3 font-mono">{{ booking.booking_code }}</td>
+  <td class="p-3">
+    <div class="font-semibold">{{ booking.event_title }}</div>
+    <div class="text-xs text-slate-500">{{ booking.starts_at }}</div>
+  </td>
+  <td class="p-3">
+    <div class="font-semibold">{{ booking.lead_name or '—' }}</div>
+    <div class="text-xs text-slate-500">{{ booking.lead_email or '' }}</div>
+  </td>
+  <td class="p-3">{{ booking.seats }}</td>
+  <td class="p-3">
+    <form
+      hx-post="/staff/bookings/{{ booking.id }}/status"
+      hx-target="closest tr"
+      hx-swap="outerHTML"
+      hx-trigger="change from:select"
+    >
+      <select name="status" class="border rounded-md px-2 py-1 text-sm">
+        <option value="requested" {% if booking.status == 'requested' %}selected{% endif %}>requested</option>
+        <option value="confirmed" {% if booking.status == 'confirmed' %}selected{% endif %}>confirmed</option>
+        <option value="canceled" {% if booking.status == 'canceled' %}selected{% endif %}>canceled</option>
+      </select>
+    </form>
+  </td>
+  <td class="p-3">{{ booking.created_at }}</td>
+</tr>

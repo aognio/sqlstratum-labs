@@ -1,0 +1,49 @@
+<div class="bg-white border rounded-lg overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-50 text-slate-500">
+      <tr>
+        <th class="text-left p-3">Code</th>
+        <th class="text-left p-3">Event</th>
+        <th class="text-left p-3">Lead attendee</th>
+        <th class="text-left p-3">Seats</th>
+        <th class="text-left p-3">Status</th>
+        <th class="text-left p-3">Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in bookings %}
+        {% include "partials/booking_row.html" %}
+      {% else %}
+        <tr>
+          <td class="p-3 text-slate-500" colspan="6">No bookings found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% set total_pages = (total // per_page) + (1 if total % per_page else 0) %}
+  {% if total_pages > 1 %}
+    <div class="flex items-center justify-between px-4 py-3 border-t text-sm text-slate-500">
+      <div>Page {{ page }} of {{ total_pages }}</div>
+      <div class="flex items-center gap-2">
+        {% if page > 1 %}
+          <a
+            href="/staff/bookings?page={{ page - 1 }}&q={{ term }}&status={{ status }}"
+            hx-get="/staff/bookings/list?page={{ page - 1 }}&q={{ term }}&status={{ status }}"
+            hx-target="#booking-results"
+            hx-push-url="true"
+            class="text-slate-600 hover:text-slate-800"
+          >Prev</a>
+        {% endif %}
+        {% if page < total_pages %}
+          <a
+            href="/staff/bookings?page={{ page + 1 }}&q={{ term }}&status={{ status }}"
+            hx-get="/staff/bookings/list?page={{ page + 1 }}&q={{ term }}&status={{ status }}"
+            hx-target="#booking-results"
+            hx-push-url="true"
+            class="text-slate-600 hover:text-slate-800"
+          >Next</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</div>

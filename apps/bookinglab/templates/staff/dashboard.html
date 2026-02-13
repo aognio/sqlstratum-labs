@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Staff Dashboard · BookingLab{% endblock %}
+{% block content %}
+<h1 class="text-xl font-semibold mb-4">Staff Dashboard</h1>
+
+<div class="grid md:grid-cols-4 gap-3 mb-6">
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Total Events</div>
+    <div class="text-2xl font-semibold">{{ kpis.total_events }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Upcoming Events</div>
+    <div class="text-2xl font-semibold">{{ kpis.upcoming_events }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Total Bookings</div>
+    <div class="text-2xl font-semibold">{{ kpis.total_bookings }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Revenue (all time)</div>
+    <div class="text-2xl font-semibold">${{ '%.2f' | format(kpis.revenue_cents / 100) }}</div>
+  </div>
+</div>
+
+<div class="bg-white border rounded-lg p-4">
+  <div class="text-sm font-semibold mb-3">Bookings by Status</div>
+  <div class="grid md:grid-cols-3 gap-3">
+    {% for row in kpis.bookings_by_status %}
+      <div class="border rounded-md p-3">
+        <div class="text-xs uppercase tracking-wide text-slate-500">{{ row.status }}</div>
+        <div class="text-xl font-semibold">{{ row.n }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
