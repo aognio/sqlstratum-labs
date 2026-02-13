@@ -1,0 +1,3 @@
+{% if invoice %}
+  <a class="text-xs text-emerald-700" href="{{ url_for('staff.invoice_detail', invoice_id=invoice.invoice_id) }}">Invoice #{{ invoice.invoice_id }}</a>
+{% endif %}

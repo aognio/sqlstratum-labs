@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Appointments · ClinicDesk{% endblock %}
+{% block content %}
+<h1 class="text-xl font-semibold mb-4">Appointments</h1>
+
+<div class="bg-white border rounded-lg p-4 mb-4">
+  <form id="filters" class="grid md:grid-cols-4 gap-3" hx-get="{{ url_for('patient.appointments_list') }}" hx-target="#appointments-table" hx-swap="innerHTML" hx-trigger="change, keyup delay:300ms">
+    <div>
+      <label class="text-xs text-slate-500">Status</label>
+      <select name="status" class="w-full border rounded px-2 py-1">
+        <option value="">All</option>
+        <option value="requested">Requested</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="cancelled">Cancelled</option>
+        <option value="done">Done</option>
+      </select>
+    </div>
+    <div>
+      <label class="text-xs text-slate-500">Start date</label>
+      <input type="date" name="start_date" class="w-full border rounded px-2 py-1" />
+    </div>
+    <div>
+      <label class="text-xs text-slate-500">End date</label>
+      <input type="date" name="end_date" class="w-full border rounded px-2 py-1" />
+    </div>
+    <div class="flex items-end">
+      <button type="button" class="px-3 py-2 border rounded" hx-get="{{ url_for('patient.appointments_list') }}" hx-target="#appointments-table" hx-include="#filters">Refresh</button>
+    </div>
+  </form>
+</div>
+
+<div id="appointments-table" hx-get="{{ url_for('patient.appointments_list') }}" hx-trigger="load" hx-include="#filters" hx-swap="innerHTML"></div>
+{% endblock %}

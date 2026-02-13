@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}My Schedule · ClinicDesk{% endblock %}
+{% block content %}
+<h1 class="text-xl font-semibold mb-4">My Schedule</h1>
+
+<form class="bg-white border rounded-lg p-4 mb-4" method="get">
+  <div class="flex items-end gap-3">
+    <div>
+      <label class="text-xs text-slate-500">Day</label>
+      <input type="date" name="day" value="{{ day }}" class="border rounded px-2 py-1" />
+    </div>
+    <button class="px-3 py-2 border rounded">Load</button>
+  </div>
+</form>
+
+<div class="bg-white border rounded-lg overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-100 text-slate-600">
+      <tr>
+        <th class="text-left px-3 py-2">When</th>
+        <th class="text-left px-3 py-2">Patient</th>
+        <th class="text-left px-3 py-2">Service</th>
+        <th class="text-left px-3 py-2">Status</th>
+        <th class="text-left px-3 py-2">Update</th>
+        <th class="text-left px-3 py-2">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        {% include "doctor/_schedule_row.html" %}
+      {% else %}
+        <tr><td colspan="6" class="px-3 py-4 text-slate-500">No appointments for this day.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

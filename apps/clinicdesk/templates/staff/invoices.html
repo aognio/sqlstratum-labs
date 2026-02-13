@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Invoices · ClinicDesk{% endblock %}
+{% block content %}
+<h1 class="text-xl font-semibold mb-4">Invoices</h1>
+
+<div class="bg-white border rounded-lg overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-100 text-slate-600">
+      <tr>
+        <th class="text-left px-3 py-2">Invoice</th>
+        <th class="text-left px-3 py-2">Patient</th>
+        <th class="text-left px-3 py-2">Appointment</th>
+        <th class="text-left px-3 py-2">Total</th>
+        <th class="text-left px-3 py-2">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr class="border-t">
+          <td class="px-3 py-2"><a class="hover:underline" href="{{ url_for('staff.invoice_detail', invoice_id=item.invoice_id) }}">#{{ item.invoice_id }}</a></td>
+          <td class="px-3 py-2">{{ item.patient_name }}</td>
+          <td class="px-3 py-2">{{ item.appointment_starts }}</td>
+          <td class="px-3 py-2">${{ '%.2f' | format(item.total_cents / 100) }}</td>
+          <td class="px-3 py-2">{{ item.status }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="px-3 py-4 text-slate-500">No invoices found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

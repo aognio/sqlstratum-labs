@@ -1,0 +1,35 @@
+{% set total_pages = (total // per_page) + (1 if total % per_page else 0) %}
+<div class="bg-white border rounded-lg overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-100 text-slate-600">
+      <tr>
+        <th class="text-left px-3 py-2">When</th>
+        <th class="text-left px-3 py-2">Patient</th>
+        <th class="text-left px-3 py-2">Doctor</th>
+        <th class="text-left px-3 py-2">Service</th>
+        <th class="text-left px-3 py-2">Status</th>
+        <th class="text-left px-3 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="appointments-body">
+      {% for item in items %}
+        {% include "staff/_appointments_row.html" %}
+      {% else %}
+        <tr><td colspan="6" class="px-3 py-4 text-slate-500">No appointments found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="flex items-center justify-between mt-3 text-sm">
+  <div>Total: {{ total }}</div>
+  <div class="flex gap-2">
+    {% if page > 1 %}
+      <button class="px-2 py-1 border rounded" hx-get="{{ url_for('staff.appointments_list') }}?page={{ page - 1 }}" hx-target="#appointments-table" hx-include="#appt-filters">Prev</button>
+    {% endif %}
+    <span>Page {{ page }}{% if total_pages %} / {{ total_pages }}{% endif %}</span>
+    {% if page < total_pages %}
+      <button class="px-2 py-1 border rounded" hx-get="{{ url_for('staff.appointments_list') }}?page={{ page + 1 }}" hx-target="#appointments-table" hx-include="#appt-filters">Next</button>
+    {% endif %}
+  </div>
+</div>

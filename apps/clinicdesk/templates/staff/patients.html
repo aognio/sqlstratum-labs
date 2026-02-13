@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Patients · ClinicDesk{% endblock %}
+{% block content %}
+<h1 class="text-xl font-semibold mb-4">Patients</h1>
+
+<div class="bg-white border rounded-lg p-4 mb-4">
+  <input type="text" name="q" placeholder="Search by name, email, phone" class="w-full border rounded px-3 py-2" hx-get="{{ url_for('staff.patients_search') }}" hx-trigger="keyup changed delay:300ms" hx-target="#patient-results" hx-swap="innerHTML" />
+</div>
+
+<div id="patient-results" hx-get="{{ url_for('staff.patients_search') }}" hx-trigger="load" hx-swap="innerHTML"></div>
+{% endblock %}

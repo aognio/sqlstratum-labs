@@ -1,0 +1,22 @@
+<tr class="border-t" id="doc-appt-{{ item.appointment_id }}">
+  <td class="px-3 py-2">{{ item.starts_at }}</td>
+  <td class="px-3 py-2">{{ item.patient_name }}</td>
+  <td class="px-3 py-2">{{ item.service_name }}</td>
+  <td class="px-3 py-2">{{ item.status }}</td>
+  <td class="px-3 py-2">
+    <form class="flex gap-1" hx-post="{{ url_for('doctor.update_status', appointment_id=item.appointment_id) }}" hx-target="#doc-appt-{{ item.appointment_id }}" hx-swap="outerHTML">
+      <select name="status" class="border rounded px-1 py-1 text-xs">
+        {% for s in ["requested", "confirmed", "done", "cancelled"] %}
+          <option value="{{ s }}" {% if item.status == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+      <button class="px-2 py-1 text-xs border rounded">Update</button>
+    </form>
+  </td>
+  <td class="px-3 py-2">
+    <form hx-post="{{ url_for('doctor.update_notes', appointment_id=item.appointment_id) }}" hx-target="#doc-appt-{{ item.appointment_id }}" hx-swap="outerHTML">
+      <input name="notes" value="{{ item.notes or '' }}" class="border rounded px-2 py-1 text-xs" />
+      <button class="px-2 py-1 text-xs border rounded">Save</button>
+    </form>
+  </td>
+</tr>

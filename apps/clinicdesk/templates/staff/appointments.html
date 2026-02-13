@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Appointments · ClinicDesk{% endblock %}
+{% block content %}
+<h1 class="text-xl font-semibold mb-4">Appointments Board</h1>
+
+<div class="bg-white border rounded-lg p-4 mb-4">
+  <h2 class="font-semibold mb-3">Create Appointment</h2>
+  <form class="grid md:grid-cols-5 gap-2" hx-post="{{ url_for('staff.create_appointment') }}" hx-target="#appointments-body" hx-swap="afterbegin">
+    <input name="patient_id" type="number" class="border rounded px-2 py-1" placeholder="Patient ID" />
+    <select name="doctor_id" class="border rounded px-2 py-1">
+      <option value="">Doctor</option>
+      {% for doctor in doctors %}
+        <option value="{{ doctor.id }}">{{ doctor.full_name }}</option>
+      {% endfor %}
+    </select>
+    <select name="service_id" class="border rounded px-2 py-1">
+      <option value="">Service</option>
+      {% for service in services %}
+        <option value="{{ service.id }}">{{ service.name }}</option>
+      {% endfor %}
+    </select>
+    <input name="starts_at" type="datetime-local" class="border rounded px-2 py-1" />
+    <select name="status" class="border rounded px-2 py-1">
+      <option value="confirmed">confirmed</option>
+      <option value="requested">requested</option>
+    </select>
+    <button class="px-3 py-2 border rounded">Create</button>
+  </form>
+</div>
+
+<div class="bg-white border rounded-lg p-4 mb-4">
+  <form id="appt-filters" class="grid md:grid-cols-4 gap-3" hx-get="{{ url_for('staff.appointments_list') }}" hx-target="#appointments-table" hx-swap="innerHTML" hx-trigger="change, keyup delay:300ms">
+    <div>
+      <label class="text-xs text-slate-500">Status</label>
+      <select name="status" class="w-full border rounded px-2 py-1">
+        <option value="">All</option>
+        <option value="requested">Requested</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="cancelled">Cancelled</option>
+        <option value="done">Done</option>
+      </select>
+    </div>
+    <div>
+      <label class="text-xs text-slate-500">Doctor</label>
+      <select name="doctor_id" class="w-full border rounded px-2 py-1">
+        <option value="">Any</option>
+        {% for doctor in doctors %}
+          <option value="{{ doctor.id }}">{{ doctor.full_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label class="text-xs text-slate-500">Start date</label>
+      <input type="date" name="start_date" class="w-full border rounded px-2 py-1" />
+    </div>
+    <div>
+      <label class="text-xs text-slate-500">End date</label>
+      <input type="date" name="end_date" class="w-full border rounded px-2 py-1" />
+    </div>
+  </form>
+</div>
+
+<div id="appointments-table" hx-get="{{ url_for('staff.appointments_list') }}" hx-trigger="load" hx-include="#appt-filters" hx-swap="innerHTML"></div>
+{% endblock %}

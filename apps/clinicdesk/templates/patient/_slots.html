@@ -1,0 +1,23 @@
+{% if not slots %}
+  <div class="bg-white border rounded-lg p-4 text-sm text-slate-500">No slots available for that day.</div>
+{% else %}
+  <div class="bg-white border rounded-lg p-4">
+    <h2 class="font-semibold text-lg mb-3">Available Slots ({{ day }})</h2>
+    <div class="grid md:grid-cols-2 gap-3">
+      {% for slot in slots %}
+        <div class="border rounded p-3 flex items-center justify-between">
+          <div>
+            <div class="text-sm font-medium">{{ slot.starts_at }}</div>
+            <div class="text-xs text-slate-500">{{ slot.doctor_name }}</div>
+          </div>
+          <form hx-post="{{ url_for('patient.book_appointment') }}" hx-target="#book-result" hx-swap="innerHTML">
+            <input type="hidden" name="service_id" value="{{ service_id }}" />
+            <input type="hidden" name="doctor_id" value="{{ slot.doctor_id }}" />
+            <input type="hidden" name="starts_at" value="{{ slot.starts_at }}" />
+            <button class="px-2 py-1 text-sm border rounded">Book</button>
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Login · ClinicDesk{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto" x-data="{ mode: 'patient' }">
+  <div class="bg-white shadow-sm border border-slate-200 rounded-lg p-6">
+    <h1 class="text-xl font-semibold mb-4">ClinicDesk Login</h1>
+    {% if error %}
+      <div class="mb-4 text-sm text-red-600">{{ error }}</div>
+    {% endif %}
+    <div class="flex gap-2 mb-4">
+      <button class="px-3 py-1 rounded border" :class="mode==='patient' ? 'bg-slate-900 text-white' : 'bg-white'" @click="mode='patient'">Patient</button>
+      <button class="px-3 py-1 rounded border" :class="mode==='staff' ? 'bg-slate-900 text-white' : 'bg-white'" @click="mode='staff'">Staff/Doctor</button>
+    </div>
+
+    <form method="post" x-show="mode==='patient'" class="space-y-3">
+      <input type="hidden" name="mode" value="patient" />
+      <div>
+        <label class="text-sm text-slate-600">Email</label>
+        <input name="email" type="email" class="w-full border rounded px-3 py-2" required />
+      </div>
+      <div>
+        <label class="text-sm text-slate-600">DOB (YYYY-MM-DD)</label>
+        <input name="dob" type="text" class="w-full border rounded px-3 py-2" required />
+      </div>
+      <button class="w-full bg-slate-900 text-white rounded px-3 py-2">Login</button>
+      <p class="text-xs text-slate-500">Demo: use a seeded patient email + DOB.</p>
+    </form>
+
+    <form method="post" x-show="mode==='staff'" class="space-y-3">
+      <input type="hidden" name="mode" value="staff" />
+      <div>
+        <label class="text-sm text-slate-600">Username</label>
+        <input name="username" type="text" class="w-full border rounded px-3 py-2" required />
+      </div>
+      <div>
+        <label class="text-sm text-slate-600">PIN</label>
+        <input name="pin" type="password" class="w-full border rounded px-3 py-2" required />
+      </div>
+      <button class="w-full bg-slate-900 text-white rounded px-3 py-2">Login</button>
+      <p class="text-xs text-slate-500">Demo: staff1 / 1234, doctor1 / 1234</p>
+    </form>
+  </div>
+</div>
+{% endblock %}

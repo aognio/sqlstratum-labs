@@ -1,0 +1,25 @@
+<tr class="border-t" id="appt-{{ item.appointment_id }}">
+  <td class="px-3 py-2">{{ item.starts_at }}</td>
+  <td class="px-3 py-2">{{ item.patient_name }}</td>
+  <td class="px-3 py-2">{{ item.doctor_name }}</td>
+  <td class="px-3 py-2">{{ item.service_name }}</td>
+  <td class="px-3 py-2">{{ item.status }}</td>
+  <td class="px-3 py-2">
+    <div class="flex flex-wrap gap-2">
+      <form hx-post="{{ url_for('staff.confirm_appointment', appointment_id=item.appointment_id) }}" hx-target="#appt-{{ item.appointment_id }}" hx-swap="outerHTML">
+        <button class="px-2 py-1 text-xs border rounded">Confirm</button>
+      </form>
+      <form hx-post="{{ url_for('staff.cancel_appointment', appointment_id=item.appointment_id) }}" hx-target="#appt-{{ item.appointment_id }}" hx-swap="outerHTML">
+        <button class="px-2 py-1 text-xs border rounded">Cancel</button>
+      </form>
+      <form class="flex gap-1" hx-post="{{ url_for('staff.reschedule_appointment', appointment_id=item.appointment_id) }}" hx-target="#appt-{{ item.appointment_id }}" hx-swap="outerHTML">
+        <input type="datetime-local" name="starts_at" class="border rounded px-1 py-1 text-xs" />
+        <button class="px-2 py-1 text-xs border rounded">Reschedule</button>
+      </form>
+      <form hx-post="{{ url_for('staff.generate_invoice', appointment_id=item.appointment_id) }}" hx-target="#invoice-badge-{{ item.appointment_id }}" hx-swap="outerHTML">
+        <button class="px-2 py-1 text-xs border rounded">Invoice</button>
+      </form>
+      <span id="invoice-badge-{{ item.appointment_id }}"></span>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Per-app virtualenvs live at .env/ (keep venvs out of git)
+**/.env/
+
+# Local feedback/scrap space (per-app or repo-level)
+**/.feedback/
+**/.scrapbook/
+
+# Environment files (do not commit secrets)
+**/.envrc
+**/.env.local
+**/.env.*
+
+# Node / frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+.next/

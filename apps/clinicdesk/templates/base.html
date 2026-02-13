@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}ClinicDesk{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 min-h-screen">
+    <nav class="bg-white border-b border-slate-200">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="/" class="font-semibold text-slate-900">ClinicDesk</a>
+          {% if current_user %}
+            <span class="text-xs uppercase tracking-wide text-slate-500">{{ current_user.role }}</span>
+          {% endif %}
+        </div>
+        <div class="flex items-center gap-3 text-sm">
+          {% if current_user %}
+            {% if current_user.role == "patient" %}
+              <a href="{{ url_for('patient.home') }}" class="hover:text-slate-700">Home</a>
+              <a href="{{ url_for('patient.appointments') }}" class="hover:text-slate-700">Appointments</a>
+              <a href="{{ url_for('patient.request_appointment') }}" class="hover:text-slate-700">Request</a>
+            {% elif current_user.role == "doctor" %}
+              <a href="{{ url_for('doctor.schedule') }}" class="hover:text-slate-700">My Schedule</a>
+              <a href="{{ url_for('staff.dashboard') }}" class="hover:text-slate-700">KPIs</a>
+            {% else %}
+              <a href="{{ url_for('staff.dashboard') }}" class="hover:text-slate-700">Dashboard</a>
+              <a href="{{ url_for('staff.patients') }}" class="hover:text-slate-700">Patients</a>
+              <a href="{{ url_for('staff.appointments') }}" class="hover:text-slate-700">Appointments</a>
+              <a href="{{ url_for('staff.invoices') }}" class="hover:text-slate-700">Invoices</a>
+            {% endif %}
+            <span class="text-slate-300">|</span>
+            <span class="text-slate-600">{{ current_user.display_name }}</span>
+            <a href="{{ url_for('logout') }}" class="text-slate-500 hover:text-slate-700">Logout</a>
+          {% else %}
+            <a href="{{ url_for('login') }}" class="text-slate-600">Login</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-6">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

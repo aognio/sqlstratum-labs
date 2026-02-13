@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · ClinicDesk{% endblock %}
+{% block content %}
+<h1 class="text-xl font-semibold mb-4">Staff Dashboard</h1>
+
+<div class="grid md:grid-cols-5 gap-3">
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Appointments Today</div>
+    <div class="text-2xl font-semibold">{{ kpis.appointments_today }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Pending Requests</div>
+    <div class="text-2xl font-semibold">{{ kpis.requested_pending }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Revenue (7d)</div>
+    <div class="text-2xl font-semibold">${{ '%.2f' | format(kpis.revenue_last_7_days / 100) }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Active Doctors</div>
+    <div class="text-2xl font-semibold">{{ kpis.active_doctors }}</div>
+  </div>
+  <div class="bg-white border rounded-lg p-4">
+    <div class="text-xs text-slate-500">Most Booked</div>
+    <div class="text-sm font-semibold">{{ kpis.most_booked_service.service_name if kpis.most_booked_service else '—' }}</div>
+    <div class="text-xs text-slate-500">{{ kpis.most_booked_service.n if kpis.most_booked_service else 0 }} bookings</div>
+  </div>
+</div>
+{% endblock %}
