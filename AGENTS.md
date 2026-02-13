@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## What this repo is
-sqlstratum-labs is a set of realistic stress-test and exploration apps for SQLStratum. These apps are not production templates.
+sqlstratum-labs is a set of realistic stretching the limits and exploration apps for SQLStratum. These apps are not production templates.
 
 ## SQLStratum links
 - GitHub: https://github.com/aognio/sqlstratum

@@ -4,7 +4,7 @@
   <img src="https://raw.githubusercontent.com/aognio/sqlstratum/main/assets/images/SQLStratum-Logo-500x500-transparent.png" alt="SQLStratum logo" />
 </p>
 
-A monorepo of stress-test and exploration apps for SQLStratum. These apps are designed to exercise joins, aggregates, pagination, search, and transactions in realistic flows, not to serve as production templates.
+A monorepo for stretching the limits of SQLStratum and explorating API design and DX. These apps are designed to exercise joins, aggregates, pagination, search, and transactions in realistic flows, not to serve as production templates.
 
 Links:
 - [SQLStratum (GitHub)](https://github.com/aognio/sqlstratum)
@@ -29,4 +29,4 @@ asdf (optional) for testing multiple Python versions:
 
 ## Contributing / feedback
 
-PRs and DX feedback are welcome. These apps are intended for stress testing SQLStratum behavior (joins, aggregates, pagination, search, and transactions), so keep changes focused and pragmatic.
+PRs and DX feedback are welcome. These apps are intended for stretching the limits of SQLStratum behavior (joins, aggregates, pagination, search, and transactions), so keep changes focused and pragmatic.

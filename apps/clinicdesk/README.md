@@ -1,6 +1,6 @@
-# ClinicDesk (sqlstratum stress-test app)
+# ClinicDesk (sqlstratum stretching the limits app)
 
-ClinicDesk is a **stress test and exploration project** for `sqlstratum` + SQLite. It is **not production-ready**: auth is demo-only, scheduling is simplified, and data modeling is intentionally minimal. The goal is to exercise joins, aggregates, pagination, filters, transactions, and hydration behavior under realistic query patterns.
+ClinicDesk is a **stretching the limits and exploration project** for `sqlstratum` + SQLite. It is **not production-ready**: auth is demo-only, scheduling is simplified, and data modeling is intentionally minimal. The goal is to exercise joins, aggregates, pagination, filters, transactions, and hydration behavior under realistic query patterns.
 
 ## Quickstart
 

@@ -1,6 +1,6 @@
-# BookingLab (Event Booking stress-test app)
+# BookingLab (Event Booking stretching the limits app)
 
-BookingLab is a FastAPI + SQLite lab app for stress-testing SQLStratum query patterns and Pydantic hydration. It is **not production software**.
+BookingLab is a FastAPI + SQLite lab app for stretching the limits of SQLStratum query patterns and Pydantic hydration. It is **not production software**.
 
 ## Setup
 

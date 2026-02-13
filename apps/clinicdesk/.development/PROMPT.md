@@ -1,11 +1,11 @@
-You are Codex. Build a realistic “exploration + stress test” web app that uses sqlstratum + SQLite in a non-trivial way. The purpose of this project is to validate sqlstratum under real application load patterns (joins, aggregates, pagination, search, transactions), not to build a production system.
+You are Codex. Build a realistic “exploration + stretching the limits” web app that uses sqlstratum + SQLite in a non-trivial way. The purpose of this project is to validate sqlstratum under real application load patterns (joins, aggregates, pagination, search, transactions), not to build a production system.
 
 You are working inside an existing repo that already contains the sqlstratum package (local source). Use the repo root as the standalone Flask app that imports and uses the local sqlstratum code from the repo (either via editable install instructions or by adjusting PYTHONPATH). The app must use SQLite as the only database.
 
 ========================================
 Project concept
 ========================================
-Name: ClinicDesk (sqlstratum stress-test app)
+Name: ClinicDesk (sqlstratum stretching the limits app)
 
 Two surfaces:
 1) Patient / customer surface (public-ish):
@@ -29,7 +29,7 @@ UI stack:
 - Tailwind CSS (use CDN to avoid build tooling)
 
 ========================================
-Why this is a sqlstratum stress test
+Why this is a sqlstratum stretching the limits exercise
 ========================================
 The app must intentionally exercise:
 - JOIN-heavy listings (appointments joined with patients, doctors, services)
@@ -234,7 +234,7 @@ sqlstratum usage rules
 README framing (very important)
 ========================================
 README.md must clearly say:
-- This is a stress test and exploration project for sqlstratum + SQLite
+- This is a stretching the limits and exploration project for sqlstratum + SQLite
 - Not production-ready; auth is demo; scheduling is simplified
 - The point is to exercise joins, aggregates, pagination, filters, transactions, hydration
 - Provide quickstart commands:
